@@ -39,56 +39,87 @@ app.get('/', async (req, res) => {
 			var headers_sent = true;
 			if(action == "fetchAllTrains")
 			{
+				try
+				{
 					fetchAllTrains().then((trains) => {
+					
 						var trains_array = [];
-
+					
 						Object.keys(trains).forEach(function(key) {
-						var val = trains[key];
-						trains_array.push(val);
+						  var val = trains[key];
+						  trains_array.push(val);
 						});
-
+						
 						let trains_data_json = JSON.stringify(trains_array);
-						headers_sent = true;
 						return res.send(trains_data_json);
-
-					});
+					});			
+				}
+				catch(err)
+				{
+					console.log(err);
+					return res.send(err);
+				}
 			}
 			
 			if(action == "fetchTrain")
 			{
-				fetchTrain(value).then((train) => {
-					console.log(train);
-					let train_data_json = JSON.stringify(train);
-					headers_sent = true;
-					return res.send(train_data_json);
-				});
+				try
+				{
+					fetchTrain(value).then((train) => {
+						console.log(train);
+						let train_data_json = JSON.stringify(train);
+						headers_sent = true;
+						return res.send(train_data_json);
+					});
+				}
+				catch(err)
+				{
+					console.log(err);
+					return res.send(err);
+				}
 			}
 			
 			
 			if(action == "fetchAllStations")
 			{
-				fetchAllStations().then((stations) => {
-					var stations_array = [];
-					Object.keys(stations).forEach(function(key) {
-						var val = stations[key];
-						stations_array.push(val);
-					});
+				try
+				{
+					fetchAllStations().then((stations) => {
+						var stations_array = [];
+						Object.keys(stations).forEach(function(key) {
+							var val = stations[key];
+							stations_array.push(val);
+						});
 
-				
-					let stations_data_json = JSON.stringify(stations_array);
-					headers_sent = true;
-					return res.send(stations_data_json);
-				});
+					
+						let stations_data_json = JSON.stringify(stations_array);
+						headers_sent = true;
+						return res.send(stations_data_json);
+					});
+				}
+				catch(err)
+				{
+					console.log(err);
+					return res.send(err);
+				}
 			}
 
 			if(action == "fetchStation")
 			{
-				fetchStation(value).then((station) => {
-					console.log(station);
-					let station_data_json = JSON.stringify(station);
-					headers_sent = true;
-					return res.send(station_data_json);
-				});
+				try
+				{
+					fetchStation(value).then((station) => {
+						console.log(station);
+						let station_data_json = JSON.stringify(station);
+						headers_sent = true;
+						return res.send(station_data_json);
+					});
+				}
+				catch(err)
+				{
+					console.log(err);
+					return res.send(err);
+				}
 			}
 			
 			if(headers_sent == false)
@@ -105,6 +136,6 @@ app.get('/', async (req, res) => {
     }
 })
 
-app.listen(port, '192.168.1.103', function () {
+app.listen(port, '192.168.1.161', function () {
     console.log('Listening to port:  ' + port);
 });
